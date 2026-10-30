@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
 
     public float jumpForce = 6;
     public bool isGrounded = true; // indica si el jugador está en el suelo
+    public int remainingJumps = 2;
 
+
+    
     [Header("Respawn System")]
     public float fallLimit = -5f; // límite de caída para reiniciar
     public Transform respawnPoint; // punto de reaparición del jugador
@@ -66,6 +69,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground")) // si el jugador colisiona con un objeto con el tag ground
         {
             isGrounded = true; // el jugador está en el suelo
+            remainingJumps = 2;
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -104,11 +108,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && isGrounded == true)
+        if (context.performed && remainingJumps > 0)
         {
             isGrounded = false; // el jugador ya no está en el suelo
+            remainingJumps --;
             Jump(); // llamada al método de salto
         }
+
     }
 }
     #endregion
