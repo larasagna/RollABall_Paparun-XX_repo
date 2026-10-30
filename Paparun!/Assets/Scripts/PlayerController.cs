@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip[] soundCollection;
 
-    [Header("Gravity settings")]
+    [Header("Gravity Settings")]
 
     public Vector3 gravity = new Vector3(0, -11, 0);
 
@@ -102,7 +102,10 @@ public class PlayerController : MonoBehaviour
         playerAudio.PlayOneShot(soundCollection[soundToplay]);
     }
 
-
+    public void ChangeGravity(float newGravityY)
+    {
+        gravity.y = newGravityY;
+    }
 
     #region Input Methods
 
@@ -122,10 +125,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void ChangeGravity(float newGravityY)
-    {
-    gravity.y = newGravityY;
-    }
+
    
 }
     #endregion
