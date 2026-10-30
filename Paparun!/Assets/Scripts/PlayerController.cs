@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
 
     public AudioClip[] soundCollection;
 
+    [Header("Gravity settings")]
+
+    public Vector3 gravity = new Vector3(0, -11, 0);
+
     [Header("Movement Parameters")]
 
     public float speed = 10;
@@ -23,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public int remainingJumps = 2;
 
 
-    
+
     [Header("Respawn System")]
     public float fallLimit = -5f; // límite de caída para reiniciar
     public Transform respawnPoint; // punto de reaparición del jugador
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        playerRb.useGravity = false;
     }
 
     // Update is called once per frame
@@ -47,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        playerRb.AddForce(gravity, ForceMode.Acceleration);
         PhysicalMovement();
     }
 
@@ -111,10 +116,16 @@ public class PlayerController : MonoBehaviour
         if (context.performed && remainingJumps > 0)
         {
             isGrounded = false; // el jugador ya no está en el suelo
-            remainingJumps --;
+            remainingJumps--;
             Jump(); // llamada al método de salto
         }
 
     }
+
+    public void ChangeGravity(float newGravityY)
+    {
+    gravity.y = newGravityY;
+    }
+   
 }
     #endregion
