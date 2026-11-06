@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     public float speed = 10;
     public Vector2 movementInput; // Entrada y almacén del movimiento del jugador
+    public Transform cameraTransform;
+    private Vector3 movementDirection;
 
     [Header("Jump Parameters")]
 
@@ -36,13 +38,27 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerRb.useGravity = false;
+        playerRb.useGravity = false; //Para poder usar la gravedad modificada y no la default del rigidbody
     }
 
     // Update is called once per frame
     void Update()
     {
         //CinematicMovement();
+
+        Vector3 forward = Camera.main.transform.forward; 
+        Vector3 right = Camera.main.transform.right;
+
+        forward.y = 0; //quitar la inclinacion vertical de la camara
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector2 input = Vector2.ClampMagnitude(movementInput, 1f);
+
+        movementDirection = forward * input.y + right * input.x;
+
         if (transform.position.y <= fallLimit) // si la posición del jugador en el eje Y es menor que el límite de caída
         {
             Respawn();
@@ -65,8 +81,7 @@ public class PlayerController : MonoBehaviour
 
     void PhysicalMovement()
     {
-        playerRb.AddForce(Vector3.right * speed * movementInput.x);
-        playerRb.AddForce(Vector3.forward * speed * movementInput.y);
+        playerRb.AddForce(movementDirection * speed);
     }
 
     private void OnCollisionEnter(Collision collision)

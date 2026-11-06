@@ -209,6 +209,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -247,6 +259,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1214435179337206848, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
       propertyPath: m_TagString
@@ -975,8 +991,8 @@ MonoBehaviour:
       Owner: {fileID: 1190570746}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
-        Gain: 1
+        InputAction: {fileID: -7617709989079216498, guid: fdb89ed06cf9ede49a87b35a6cdea123, type: 3}
+        Gain: 3
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -986,8 +1002,8 @@ MonoBehaviour:
       Owner: {fileID: 1190570746}
       Enabled: 1
       Input:
-        InputAction: {fileID: 0}
-        Gain: 1
+        InputAction: {fileID: -7617709989079216498, guid: fdb89ed06cf9ede49a87b35a6cdea123, type: 3}
+        Gain: 3
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -1278,6 +1294,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 90289353-9bc6-4368-8031-81e651944bda
     m_ActionName: 'Gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3439aef1-354f-45d7-912f-af9b0d72cdc1
+    m_ActionName: 'Gameplay/Look[/Mouse/delta]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -1540,6 +1560,10 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 1870682894}
+    - target: {fileID: 5237023539197917325, guid: 3fb57e17a3e6668488d32eb3672e4bb8, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 330585546}
     - target: {fileID: 7193963946545006219, guid: 3fb57e17a3e6668488d32eb3672e4bb8, type: 3}
       propertyPath: m_Radius
       value: 0.00415
