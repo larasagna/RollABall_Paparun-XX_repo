@@ -1,0 +1,146 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerController : MonoBehaviour
+{
+    [Header("Editor References")]
+    public Rigidbody playerRb;
+    public AudioSource playerAudio;
+
+    [Header("Sound Configuration")]
+
+    public AudioClip[] soundCollection;
+
+    [Header("Gravity Settings")]
+
+    public Vector3 gravity = new Vector3(0, -11, 0);
+
+    [Header("Movement Parameters")]
+
+    public float speed = 10;
+    public Vector2 movementInput; // Entrada y almacén del movimiento del jugador
+    public Transform cameraTransform;
+    private Vector3 movementDirection;
+
+    [Header("Jump Parameters")]
+
+    public float jumpForce = 6;
+    public bool isGrounded = true; // indica si el jugador está en el suelo
+    public int remainingJumps = 2;
+
+
+
+    [Header("Respawn System")]
+    public float fallLimit = -5f; // límite de caída para reiniciar
+    public Transform respawnPoint; // punto de reaparición del jugador
+
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        playerRb.useGravity = false; //Para poder usar la gravedad modificada y no la default del rigidbody
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //CinematicMovement();
+
+        Vector3 forward = Camera.main.transform.forward; 
+        Vector3 right = Camera.main.transform.right;
+
+        forward.y = 0; //quitar la inclinacion vertical de la camara
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector2 input = Vector2.ClampMagnitude(movementInput, 1f);
+
+        movementDirection = forward * input.y + right * input.x;
+
+        if (transform.position.y <= fallLimit) // si la posición del jugador en el eje Y es menor que el límite de caída
+        {
+            Respawn();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        playerRb.AddForce(gravity, ForceMode.Acceleration);
+        PhysicalMovement();
+    }
+
+    void CinematicMovement()
+    {
+        //Movimiento = (Dirección * Velocidad * Input * Time.DeltaTime)
+
+        //transform.Translate(Vector3.right * speed * movementInput.x * Time.deltaTime);
+        //transform.Translate(Vector3.forward * speed * movementInput.y * Time.deltaTime);
+    }
+
+    void PhysicalMovement()
+    {
+        playerRb.AddForce(movementDirection * speed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground")) // si el jugador colisiona con un objeto con el tag ground
+        {
+            isGrounded = true; // el jugador está en el suelo
+            remainingJumps = 2;
+        }
+
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Respawn();
+        }
+
+    }
+
+    void Jump()
+    {
+        playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        PlaySFX(0);
+    }
+
+    void Respawn()
+    {
+        transform.position = respawnPoint.position; // reaparecer
+        playerRb.linearVelocity = Vector3.zero; // resetear la velocidad del Rb
+        PlaySFX(1);
+    }
+
+    public void PlaySFX(int soundToplay)
+    {
+        playerAudio.PlayOneShot(soundCollection[soundToplay]);
+    }
+
+    public void ChangeGravity(float newGravityY)
+    {
+        gravity.y = newGravityY;
+    }
+
+    #region Input Methods
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        movementInput = context.ReadValue<Vector2>(); // Almacena la entrada de movimiento del jugador en un Vector2
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed && remainingJumps > 0)
+        {
+            isGrounded = false; // el jugador ya no está en el suelo
+            remainingJumps--;
+            Jump(); // llamada al método de salto
+        }
+
+    }
+
+
+   
+}
+    #endregion
