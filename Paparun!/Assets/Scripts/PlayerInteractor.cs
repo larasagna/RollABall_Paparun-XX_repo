@@ -34,9 +34,10 @@ public class PlayerInteractor : MonoBehaviour
         if (other.gameObject.CompareTag("PickUp"))
         {
             points++; // Incrementa los puntos del jugador en 1
-            //Destroy(other.gameObject);
+            Destroy(other.gameObject);
             other.gameObject.SetActive(false); // desactiva el objeto que el jugador ha recogido
             playerCont.PlaySFX(2); // llama al método PlaySFX del otro Script para reproducir un efecto de sonido
+            
         }
     }
 
