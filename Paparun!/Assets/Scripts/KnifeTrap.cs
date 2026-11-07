@@ -21,7 +21,7 @@ public class KnifeTrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector2.Distance(transform.position, points[i].position) < 0.2f)
+        if (Vector3.Distance(transform.position, points[i].position) < 0.5f)
         {
             i++;
             if (i == points.Length) //chequea si la plataforma llega al último punto
@@ -31,7 +31,7 @@ public class KnifeTrap : MonoBehaviour
         }
 
 
-        transform.position = Vector2.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, points[i].position, speed * Time.deltaTime);
     }
 
     // collision letal
