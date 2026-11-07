@@ -140,6 +140,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void OnRespawn(InputAction.CallbackContext context)
+    {
+        if (context.performed) 
+        {
+            Respawn();
+        }
+    }
+        
+
 
    
 }
