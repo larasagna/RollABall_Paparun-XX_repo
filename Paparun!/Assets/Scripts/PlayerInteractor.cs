@@ -15,6 +15,10 @@ public class PlayerInteractor : MonoBehaviour
 
     public PlayerController playerCont;
 
+    public LevelTimer timer;
+    public EndScreen endScreen;
+    private bool finished = false;
+
 
     void Start()
     {
@@ -26,6 +30,12 @@ public class PlayerInteractor : MonoBehaviour
         if (points >= winPoints) // si los puntos del jugador son mayores o iguales a los puntos necesarios para ganar
         {
             LoadScene();
+            if ( finished && points >= winPoints)
+            {
+                finished = true;
+                timer.StopTimer();
+                endScreen.Show(timer.GetTime());
+            }
         }
     }
 
