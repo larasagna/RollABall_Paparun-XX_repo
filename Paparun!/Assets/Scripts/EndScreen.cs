@@ -7,6 +7,10 @@ public class EndScreen : MonoBehaviour
     public GameObject panel;
     public TextMeshProUGUI finalTimeText;
         public TextMeshProUGUI bestTimeText;
+
+    [Header("Audio")]
+    public AudioSource musicSource;
+    public AudioClip victoryClip;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,6 +39,17 @@ public class EndScreen : MonoBehaviour
         }
         finalTimeText.text = "Tu tiempo " + FormatTime(time) + (newRecord ? " ¡Nuevo record!" : "");
         bestTimeText.text = "Mejor tiempo: " + FormatTime(best);
+
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+            if (victoryClip != null)
+            {
+                musicSource.loop = false;
+                musicSource.clip = victoryClip;
+                musicSource.Play();
+            }
+        }
 
         panel.SetActive(true);
         Time.timeScale = 0f; //se detiene el tiempo en la pantalla final
