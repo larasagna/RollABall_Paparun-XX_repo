@@ -22,12 +22,15 @@ public class EndScreen : MonoBehaviour
 
     public void Show(float time)
     {
-        float best = PlayerPrefs.GetFloat("BestTime", float.MaxValue);
+        string key = "BestTime_" + SceneManager.GetActiveScene().buildIndex;
+        float best = PlayerPrefs.GetFloat(key , float.MaxValue);
         bool newRecord = time < best;
+
         if (newRecord)
         {
             best = time;
-            PlayerPrefs.SetFloat("BestTime", best);
+
+            PlayerPrefs.SetFloat(key, best);
             PlayerPrefs.Save();
         }
         finalTimeText.text = "Tu tiempo " + FormatTime(time) + (newRecord ? " ¡Nuevo record!" : "");
@@ -49,5 +52,19 @@ public class EndScreen : MonoBehaviour
         int seconds = Mathf.FloorToInt(t % 60f);
         int centis = Mathf.FloorToInt((t * 100f) % 100f);
         return $"{minutes:00}:{seconds:00}.{centis:00}";
+    }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1f; 
+
+        int next = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (next >= SceneManager.sceneCountInBuildSettings)
+        {
+            next = 0; 
+        }
+
+        SceneManager.LoadScene(next);
     }
 }

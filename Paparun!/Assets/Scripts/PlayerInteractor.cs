@@ -15,6 +15,7 @@ public class PlayerInteractor : MonoBehaviour
 
     public PlayerController playerCont;
 
+    [Header("EndScreen configuration")]
     public LevelTimer timer;
     public EndScreen endScreen;
     private bool finished = false;
@@ -29,8 +30,8 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (points >= winPoints) // si los puntos del jugador son mayores o iguales a los puntos necesarios para ganar
         {
-            LoadScene();
-            if ( finished && points >= winPoints)
+            //LoadScene();
+            if (!finished && points >= winPoints)
             {
                 finished = true;
                 timer.StopTimer();
@@ -46,7 +47,7 @@ public class PlayerInteractor : MonoBehaviour
             points++; // Incrementa los puntos del jugador en 1
             Destroy(other.gameObject);
             other.gameObject.SetActive(false); // desactiva el objeto que el jugador ha recogido
-            playerCont.PlaySFX(2); // llama al método PlaySFX del otro Script para reproducir un efecto de sonido
+           // playerCont.PlaySFX(2); // llama al método PlaySFX del otro Script para reproducir un efecto de sonido
             
         }
     }
