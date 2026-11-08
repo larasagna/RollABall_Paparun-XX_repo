@@ -1222,6 +1222,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ground
       objectReference: {fileID: 0}
+    - target: {fileID: -7029948723529949830, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: -6818539896840943569, guid: fb5d91841b9135f49bece0c0f74543cb, type: 3}
       propertyPath: m_TagString
       value: Ground

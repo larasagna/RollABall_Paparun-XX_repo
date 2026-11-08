@@ -40,12 +40,6 @@ public class EndScreen : MonoBehaviour
         Time.timeScale = 0f; //se detiene el tiempo en la pantalla final
     }
 
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     string FormatTime(float t)
     {
         int minutes = Mathf.FloorToInt(t / 60f);
@@ -66,5 +60,6 @@ public class EndScreen : MonoBehaviour
         }
 
         SceneManager.LoadScene(next);
+        Debug.Log("Cargando escena índice: " + next + " de " + SceneManager.sceneCountInBuildSettings);
     }
 }
