@@ -37,8 +37,8 @@ public class EndScreen : MonoBehaviour
             PlayerPrefs.SetFloat(key, best);
             PlayerPrefs.Save();
         }
-        finalTimeText.text = "Tu tiempo " + FormatTime(time) + (newRecord ? " ¡Nuevo record!" : "");
-        bestTimeText.text = "Mejor tiempo: " + FormatTime(best);
+        finalTimeText.text = "Your time: " + FormatTime(time) + (newRecord ? " New record!" : "");
+        bestTimeText.text = "Best time: " + FormatTime(best);
 
         if (musicSource != null)
         {
