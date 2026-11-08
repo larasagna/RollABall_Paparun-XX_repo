@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlaySFX(int soundToplay)
     {
-        playerAudio.PlayOneShot(soundCollection[soundToplay]);
+        //playerAudio.PlayOneShot(soundCollection[soundToplay]);
     }
 
     public void ChangeGravity(float newGravityY)
@@ -139,6 +139,15 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void OnRespawn(InputAction.CallbackContext context)
+    {
+        if (context.performed) 
+        {
+            Respawn();
+        }
+    }
+        
 
 
    
