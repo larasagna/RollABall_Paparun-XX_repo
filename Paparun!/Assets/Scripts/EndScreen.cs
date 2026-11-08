@@ -7,6 +7,10 @@ public class EndScreen : MonoBehaviour
     public GameObject panel;
     public TextMeshProUGUI finalTimeText;
         public TextMeshProUGUI bestTimeText;
+
+    [Header("Audio")]
+    public AudioSource musicSource;
+    public AudioClip victoryClip;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,17 +37,22 @@ public class EndScreen : MonoBehaviour
             PlayerPrefs.SetFloat(key, best);
             PlayerPrefs.Save();
         }
-        finalTimeText.text = "Tu tiempo " + FormatTime(time) + (newRecord ? " ¡Nuevo record!" : "");
-        bestTimeText.text = "Mejor tiempo: " + FormatTime(best);
+        finalTimeText.text = "Your time: " + FormatTime(time) + (newRecord ? " New record!" : "");
+        bestTimeText.text = "Best time: " + FormatTime(best);
+
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+            if (victoryClip != null)
+            {
+                musicSource.loop = false;
+                musicSource.clip = victoryClip;
+                musicSource.Play();
+            }
+        }
 
         panel.SetActive(true);
         Time.timeScale = 0f; //se detiene el tiempo en la pantalla final
-    }
-
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     string FormatTime(float t)
@@ -66,5 +75,6 @@ public class EndScreen : MonoBehaviour
         }
 
         SceneManager.LoadScene(next);
+        Debug.Log("Cargando escena índice: " + next + " de " + SceneManager.sceneCountInBuildSettings);
     }
 }
