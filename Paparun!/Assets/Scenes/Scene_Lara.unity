@@ -9289,7 +9289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
   points: 0
-  winPoints: 1
+  winPoints: 10
   sceneToLoad: 0
   playerCont: {fileID: 1761874437}
   timer: {fileID: 1489324531}
